@@ -1,5 +1,6 @@
 .mainContainer {
-  background-color: red;
   display: flex;
-  padding: 50px;
+  padding: 25px;
+  gap: 30px;
+  justify-content: center;
 }

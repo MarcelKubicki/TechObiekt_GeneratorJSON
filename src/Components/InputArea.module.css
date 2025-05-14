@@ -3,12 +3,29 @@
   flex: 1;
   border-radius: 5px;
   padding: 5px;
-  background-color: white;
+  background-color: var(--secondary-color);
   box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.19);
+  color: var(--font-main-color);
+}
+
+@media (max-width: 375px) {
+  .window .topToolBar .dotsContainer h2,
+  .window p {
+    font-size: 0.75rem !important;
+  }
+  .window {
+    font-size: 0.75rem !important;
+  }
+}
+
+@media (max-width: 700px) {
+  .window {
+    max-width: 100%;
+  }
 }
 
 .window h2 {
-  font-size: 16px;
+  font-size: 1rem;
   margin: 0 8px;
 }
 
@@ -23,19 +40,18 @@
   font-family: inherit;
   cursor: pointer;
   vertical-align: middle;
-  border: 1px rgb(57, 73, 99) solid;
+  border: none;
   border-radius: 5px;
-  color: white;
-  font-size: 16px;
+  color: var(--font-main-color);
+  font-size: 1rem;
   padding: 3px 6px;
-  background-color: rgb(217, 217, 217);
-  color: rgb(57, 73, 99);
+  background-color: var(--buttons-color);
   transition: background-color 0.2s;
 }
 
 .window .clearButton {
   background-color: #f56565;
-  color: white;
+  color: var(--font-main-color);
   border-color: #f56565;
 }
 
@@ -88,4 +104,8 @@
 
 .greenDot {
   background-color: #28c840;
+}
+
+.window .upload {
+  display: none;
 }

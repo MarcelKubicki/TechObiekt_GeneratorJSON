@@ -1,6 +1,22 @@
 .mainContainer {
   display: flex;
-  padding: 25px;
-  gap: 30px;
+  padding: 0 15px;
+  gap: 20px;
   justify-content: center;
+}
+
+@media (max-width: 700px) {
+  .mainContainer {
+    flex-direction: column;
+  }
+
+  .mainContainer {
+    padding: 0 15px;
+  }
+}
+
+@media (max-width: 425px) {
+  .mainContainer {
+    padding: 0 8px;
+  }
 }

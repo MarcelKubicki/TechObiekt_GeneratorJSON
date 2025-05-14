@@ -1,10 +1,13 @@
-import styles from "./InputArea.module.css";
-import CodeMirror from "@uiw/react-codemirror";
+import { useRef, useState } from "react";
+import { Trash2, Upload, Copy } from "lucide-react";
 import { json } from "@codemirror/lang-json";
 import { tokyoNightStorm } from "@uiw/codemirror-theme-tokyo-night-storm";
-import { useState } from "react";
+import { duotoneLight } from "@uiw/codemirror-theme-duotone";
+import CodeMirror from "@uiw/react-codemirror";
+
+import { useDarkMode } from "../Contexts/DarkModeContext";
 import Popup from "./Popup";
-import { Trash2, Upload, Copy } from "lucide-react";
+import styles from "./InputArea.module.css";
 
 function InputArea({
   name,
@@ -17,6 +20,21 @@ function InputArea({
   const [code, setCode] = useState("");
   const [showModal, setShowModal] = useState(false);
   let timeout;
+  const inputFile = useRef(null);
+  const { isDark } = useDarkMode();
+
+  function handleUpload(file) {
+    if (file.type !== "text/plain" && file.type !== "application/json") {
+      alert("Please upload a .json or .txt file");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      const content = e.target.result;
+      setCode(content);
+    };
+    reader.readAsText(file);
+  }
 
   function handleCopyClipboard() {
     navigator.clipboard.writeText(code);
@@ -36,22 +54,33 @@ function InputArea({
         </div>
         <div className={styles.buttonsContainer}>
           {uploadButton && (
-            <button>
+            <button onClick={() => inputFile.current.click()}>
               <Upload size={16} />
               <p>upload</p>
+              <input
+                className={styles.upload}
+                type="file"
+                accept=".json, .txt"
+                ref={inputFile}
+                onChange={(e) => handleUpload(e.target.files[0])}
+              />
             </button>
           )}
+
           {deleteButton && (
             <button className={styles.clearButton} onClick={() => setCode("")}>
               <Trash2 size={16} />
               <p>clear</p>
             </button>
           )}
+
           {copyButton && (
             <button onClick={handleCopyClipboard}>
-              <Copy size={16} /> copy
+              <Copy size={16} />
+              <p>copy</p>
             </button>
           )}
+
           {showModal && <Popup>Copied to clipboard</Popup>}
         </div>
       </div>
@@ -62,7 +91,7 @@ function InputArea({
         placeholder={placeHolder}
         height="700px"
         extensions={json()}
-        theme={tokyoNightStorm}
+        theme={isDark ? tokyoNightStorm : duotoneLight}
         readOnly={readOnly}
       />
     </section>

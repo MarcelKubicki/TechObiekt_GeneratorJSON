@@ -1,11 +1,11 @@
-import "./App.css";
 import Header from "./Components/Header";
 import InputArea from "./Components/InputArea";
 import InOutContainer from "./Components/InOutContainer";
+import DarkModeProvider from "./Contexts/DarkModeContext";
 
 function App() {
   return (
-    <>
+    <DarkModeProvider>
       <Header />
       <InOutContainer>
         <InputArea
@@ -16,7 +16,7 @@ function App() {
         />
         <InputArea name="JSON Schema" readOnly copyButton />
       </InOutContainer>
-    </>
+    </DarkModeProvider>
   );
 }
 
